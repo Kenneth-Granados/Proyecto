@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f7e59883-09db-46f8-9726-8092170faa03": {
+      "ProjectGuid": "f7e59883-09db-46f8-9726-8092170faa03",
+      "DisplayName": "Pelicula",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
