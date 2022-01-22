@@ -1,7 +1,18 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Pelicula.Data;
+using Microsoft.AspNetCore.Authorization;
+using Pelicula.Areas.Identity.Data;
 
+var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("PeliculaDBContextConnection");
+builder.Services.AddDbContext<PeliculaDBContext>(options => options.UseSqlServer(connectionString));//Inyeccion de dependencia
+
+//builder.Services.AddDefaultIdentity<Pelicula.Areas.Identity.Data.ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<PeliculaDBContext>();
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddDefaultUI().AddDefaultTokenProviders().AddEntityFrameworkStores<PeliculaDBContext>();
+
+builder.Services.AddControllersWithViews();//
 
 var app = builder.Build();
 
@@ -17,11 +28,15 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(name: "default",pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endPoint =>
+{
+    endPoint.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+    endPoint.MapRazorPages();
+});
 
 app.Run();
