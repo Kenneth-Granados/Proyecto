@@ -1,91 +1,5 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-
-
-/* MAIN CONTIANER */
-.main-container {
-    padding: 50px;
-}
-
-.box {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(100px, 1fr));
-}
-
-    .box a {
-        transition: transform .3s;
-    }
-
-        .box a:hover {
-            transition: transform .3s;
-            -ms-transform: scale(1.4);
-            -webkit-transform: scale(1.4);
-            transform: scale(1.4);
-        }
-
-    .box img {
-        border-radius: 2px;
-    }
-
-
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
-a {
-  color: #0077cc;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/*.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
-}*/
-
-
-
-
-
-
-
-
-
-/* CSS VARIABLES */
-/*:root {
+﻿/* CSS VARIABLES */
+:root {
     --primary: #141414;
     --light: #F3F3F3;
     --dark: #686868;
@@ -114,10 +28,10 @@ h1 {
 .wrapper {
     margin: 0;
     padding: 0;
-}*/
+}
 
 /* HEADER */
-/*header {
+header {
     padding: 20px 20px 0 20px;
     position: fixed;
     top: 0;
@@ -179,78 +93,20 @@ h1 {
 
         .sub-nav a:hover {
             color: var(--dark);
-        }*/
-
-
-/* MAIN CONTIANER */
-/*.main-container {
-    padding: 50px;
-}
-
-.box {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(6, minmax(100px, 1fr));
-}
-
-    .box a {
-        transition: transform .3s;
-    }
-
-        .box a:hover {
-            transition: transform .3s;
-            -ms-transform: scale(1.4);
-            -webkit-transform: scale(1.4);
-            transform: scale(1.4);
         }
-
-    .box img {
-        border-radius: 2px;
-    }*/
-
-/* LINKS */
-/*.link {
-    padding: 50px;
-}
-
-.sub-links ul {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.sub-links a {
-    color: var(--dark);
-    text-decoration: none;
-}
-
-    .sub-links a:hover {
-        color: var(--dark);
-        text-decoration: underline;
-    }
-
-.logos a {
-    padding: 10px;
-}
-
-.logo {
-    color: var(--dark);
-}*/
 
 
 /* FOOTER */
-/*footer {
+footer {
     padding: 20px;
     text-align: center;
     color: var(--dark);
     margin: 10px;
-}*/
+}
 
 /* MEDIA QUERIES */
 
-/*@media(max-width: 900px) {
+@media(max-width: 900px) {
 
     header {
         display: grid;
@@ -269,7 +125,6 @@ h1 {
 }
 
 @media(max-width: 700px) {
-
     header {
         display: grid;
         grid-gap: 20px;
@@ -337,12 +192,12 @@ h1 {
         text-align: center;
     }
 
-        .box a:hover {
-            transition: transform .3s;
-            -ms-transform: scale(1);
-            -webkit-transform: scale(1);
-            transform: scale(1.2);
-        }
+    .box a:hover {
+        transition: transform .3s;
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1.2);
+    }
 
     .logos {
         display: grid;
@@ -358,5 +213,4 @@ h1 {
         text-align: center;
         font-size: 15px;
     }
-}*/
-
+}

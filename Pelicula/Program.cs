@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PeliculaDBContextConnection");
 builder.Services.AddDbContext<PeliculaDBContext>(options => options.UseSqlServer(connectionString));//Inyeccion de dependencia
 
+
 //builder.Services.AddDefaultIdentity<Pelicula.Areas.Identity.Data.ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<PeliculaDBContext>();
 // Add services to the container.
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddDefaultUI().AddDefaultTokenProviders().AddEntityFrameworkStores<PeliculaDBContext>();
@@ -40,3 +41,5 @@ app.UseEndpoints(endPoint =>
 });
 
 app.Run();
+
+// Scaffold-DbContext "Server=localhost; Database=Pelicula; Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/DB

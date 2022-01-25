@@ -7,13 +7,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pelicula.Areas.Identity.Data;
 
-// Add profile data for application users by adding properties to the ApplicationUser class
+// Agregue datos de perfil para usuarios de aplicaciones
+// agregando propiedades a la clase ApplicationUser
+
 public class ApplicationUser : IdentityUser
 {
     [PersonalData]
     [Column(TypeName ="bit")]
     public bool Estado { get; set; }
-    
     
 }
 

@@ -9796,25 +9796,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PC-1\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PC-1\\Documents\\Tarea BD\\Proyecto\\Pelicula\\Pelicula.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Desktop\\Proyecto\\Pelicula\\Pelicula.csproj",
       "projectName": "Pelicula",
-      "projectPath": "C:\\Users\\PC-1\\Documents\\Tarea BD\\Proyecto\\Pelicula\\Pelicula.csproj",
-      "packagesPath": "C:\\Users\\PC-1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PC-1\\Documents\\Tarea BD\\Proyecto\\Pelicula\\obj\\",
+      "projectPath": "C:\\Users\\user\\Desktop\\Proyecto\\Pelicula\\Pelicula.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\Desktop\\Proyecto\\Pelicula\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\PC-1\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"

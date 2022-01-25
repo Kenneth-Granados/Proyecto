@@ -12,6 +12,6 @@ namespace Pelicula.Models.DB
         public int? IdPelicula { get; set; }
 
         public virtual Genero? IdGeneroNavigation { get; set; }
-        public virtual Pelicula? IdPeliculaNavigation { get; set; }
+        public virtual PeliculaRepository? IdPeliculaNavigation { get; set; }
     }
 }

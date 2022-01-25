@@ -10,13 +10,12 @@ namespace Pelicula.Models.DB
         {
             PeliculaGeneros = new HashSet<PeliculaGenero>();
         }
-
         [Key]
         public int IdGenero { get; set; }
         public string? NombreGenero { get; set; }
         public int? IdPelicula { get; set; }
 
-        public virtual Pelicula? IdPeliculaNavigation { get; set; }
+        public virtual PeliculaRepository? IdPeliculaNavigation { get; set; }
         public virtual ICollection<PeliculaGenero> PeliculaGeneros { get; set; }
     }
 }

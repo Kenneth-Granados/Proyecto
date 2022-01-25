@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace Pelicula.Models.DB
 {
-    public partial class Pelicula
+    public partial class PeliculaRepository
     {
-        public Pelicula()
+        public PeliculaRepository()
         {
             Generos = new HashSet<Genero>();
             PeliculaGeneros = new HashSet<PeliculaGenero>();

@@ -9,10 +9,12 @@ namespace Pelicula.Data;
 public class PeliculaDBContext : IdentityDbContext<ApplicationUser>
 //public class PeliculaDBContext : IdentityDbContext
 {
-    public PeliculaDBContext(DbContextOptions<PeliculaDBContext> options)
-        : base(options)
+    public PeliculaDBContext(DbContextOptions<PeliculaDBContext> options): base(options)
     {
     }
+    public DbSet<PeliculaRepository> PeliculaRepositories { get; set; } = null!;
+
+    // public PeliculaContext(DbContextOptions<PeliculaContext> options): base(options)
 
     //protected override void OnModelCreating(ModelBuilder builder)
     //{
@@ -27,10 +29,12 @@ public class PeliculaDBContext : IdentityDbContext<ApplicationUser>
     //public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; } = null!;
     //public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } = null!;
     //public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; } = null!;
-    public  DbSet<Comentario> Comentarios { get; set; } = null!;
-    public  DbSet<Genero> Generos { get; set; } = null!;
-    public  DbSet<Models.DB.Pelicula> PeliDB { get; set; } = null!;
-    public  DbSet<PeliculaGenero> PeliculaGeneros { get; set; } = null!;
-    public  DbSet<Puntuacion> Puntuacions { get; set; } = null!;
+
+    //public DbSet<Comentario> Comentarios { get; set; } = null!;
+    //public  DbSet<Genero> Generos { get; set; } = null!;
+    //public  DbSet<Models.DB.Pelicula> PeliDB { get; set; } = null!;
+    //public  DbSet<PeliculaGenero> PeliculaGeneros { get; set; } = null!;
+    //public  DbSet<Puntuacion> Puntuacions { get; set; } = null!;
+
     //public virtual DbSet<AspNetUser> Puntuacions { get; set; } = null!;
 }

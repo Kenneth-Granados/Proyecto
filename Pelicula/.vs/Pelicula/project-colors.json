@@ -5,6 +5,11 @@
       "ProjectGuid": "f7e59883-09db-46f8-9726-8092170faa03",
       "DisplayName": "Pelicula",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Archivos varios",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1

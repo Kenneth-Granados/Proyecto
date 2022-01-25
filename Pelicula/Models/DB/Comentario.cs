@@ -8,8 +8,10 @@ namespace Pelicula.Models.DB
     {
         [Key]
         public int IdComentario { get; set; }
-        public string IdUsuario { get; set; } = null!;
+        public string? IdUsuario { get; set; }
         public DateTime Fecha { get; set; }
         public string Comentario1 { get; set; } = null!;
+
+        public virtual AspNetUser? IdUsuarioNavigation { get; set; }
     }
 }

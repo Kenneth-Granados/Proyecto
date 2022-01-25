@@ -1,51 +1,74 @@
-﻿@model IEnumerable<Pelicula.Models.DB.Pelicula>
+﻿
+@using Microsoft.AspNetCore.Identity
+@using Pelicula.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@*@section Styles{
+    <link type="text/css" rel="stylesheet" href="~/css/LayoutPrincipal.css" />
+ 
+}
+*@
+
+
+@model IEnumerable<PeliculaRepository>
 @{
     ViewData["Title"] = "Home Page";
 }
-    <form class="text-center" asp-action="Index" method="get">
+    @*<form class="text-center" asp-action="Index" method="get">
         <p>
             Movie Name: <input class="searchbar" type="search" placeholder="Search your Movies..." value="@ViewData["GetMovies"]" name="MovieSearch" style="width:500px" />
             <button class="btn btn-danger" type="search" value="search">Search</button>
             <a asp-action="Index"><i class="fas fa-close"></i></a>
         </p>
-    </form>
-<h1>All Movies </h1><hr />
+    </form>*@
+    @*<div class="input-group">
+        <div class="form-outline">
+            <input type="search" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Search</label>
+        </div>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>*@
 
-<div class="text-center text-white">
+<h1>All Movies </h1>
+<section class="main-container">
+    <div class="location">
+        <div class="box">
+            @foreach (var movie in Model)
+            {
+                <a  asp-action="Detail" asp-route-id="@movie.IdPelicula">
+                    <img src="@movie.LinkImagen" width="200px" height="250px" alt="@movie.Titulo" title=@movie.Titulo>
+                        @movie.Titulo
+                </a>
+            }
+        </div>
+    </div>
+</section>
+@*<div class="text-center text-white">
 
-    @if (Model.Count() > 0)
+
+</div>*@
+
+    @*@if (Model.Count() > 0)
     {
         <div class="wrapper row">
             @foreach (var movie in Model)
             {
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <div class="item m-4">
-                        <a asp-action="Detail" asp-route-id="@movie.IdPelicula">
-                          
-                            <img src="@movie.LinkImagen" width="200px" height="260px" title=@movie.Titulo />
-                        </a>
-                        <div>
-                            @movie.Titulo
-                        </div>
+                <div class="item m-4">
+                    <a asp-action="Detail" asp-route-id="@movie.IdPelicula">
+                        <img src="@movie.LinkImagen" width="200px" height="260px" title=@movie.Titulo />
+                    </a>
+                    <div>
+                        @movie.Titulo
                     </div>
-                }
-                else
-                {
-                    <div class="item m-4">
-                        <a asp-action="Login" asp-controller="Account" asp-area="Identity">
-                           
-                             <img src="@movie.LinkImagen" width="200px" height="260px" title=@movie.Titulo />
-                        </a>
-                    </div>
-                }
-
+                </div>
             }
         </div>
     }
     else
     {
         <h4>No Movies Available Right Now</h4>
-    }
-</div>
-
+    }*@
