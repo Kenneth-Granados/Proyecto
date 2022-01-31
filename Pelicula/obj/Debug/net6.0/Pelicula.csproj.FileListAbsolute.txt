@@ -269,3 +269,4 @@ C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\ref\Pelicula.dll
 C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\Pelicula.pdb
 C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\Pelicula.genruntimeconfig.cache
 C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\scopedcss\Views\Home\Index.cshtml.rz.scp.css
+C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\scopedcss\Views\Shared\_PeliculaLayout.cshtml.rz.scp.css

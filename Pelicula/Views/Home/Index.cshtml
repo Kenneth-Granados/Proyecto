@@ -7,13 +7,13 @@
 
 @*@section Styles{
     <link type="text/css" rel="stylesheet" href="~/css/LayoutPrincipal.css" />
- 
 }
 *@
 
 
 @model IEnumerable<PeliculaRepository>
 @{
+    Layout = "_PeliculaLayout";
     ViewData["Title"] = "Home Page";
 }
     @*<form class="text-center" asp-action="Index" method="get">
