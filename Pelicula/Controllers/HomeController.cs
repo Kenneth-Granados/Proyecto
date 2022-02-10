@@ -6,44 +6,105 @@ using Pelicula.Data;
 using Microsoft.EntityFrameworkCore;
 using Pelicula.Models.DB;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+
 
 namespace Pelicula.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private  PeliculaDBContext pdb;
-   
+        private readonly PeliculaContext _context;
 
-        public HomeController(ILogger<HomeController> logger, PeliculaDBContext pdb)
+
+        public HomeController(ILogger<HomeController> logger,PeliculaContext context)
         {
             _logger = logger;
-            this.pdb = pdb;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            List<PeliculaRepository> p = null;
-            using (var db = new PeliculaContext())
-            {
-                p = await db.PeliculaRepositories.ToListAsync(); 
-            }
-
-            return View(p);
+            return View(await _context.PeliculaRepositories.ToListAsync());
         }
-        //[Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Index(string MovieSearch)
+        {
+            ViewData["GetMovies"] = MovieSearch;
+            var moviequery = from x in _context.PeliculaRepositories select x;
+            
+            if (!String.IsNullOrEmpty(MovieSearch))
+            {
+                moviequery = moviequery.Where(x => x.Titulo.Contains(MovieSearch));
+            }
+            return View(await moviequery.AsNoTracking().ToListAsync());
+        }
+    
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            PeliculaRepository p = null;
-            using(var db = new PeliculaContext())
+            var p = await _context.PeliculaRepositories.FindAsync(id);
+            if(p == null)
             {
-                p = await db.PeliculaRepositories.FindAsync(id);
+                return NotFound();
             }
             return View(p);
+        }
+        [HttpGet]
+        public async Task<IActionResult> PeliculasGeneros(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var gen = await _context.Generos.FindAsync(id);
+            if (gen == null)
+            {
+                return NotFound();
+            }
+            return View(await GetPeliculaPorGenero(id));
+        }
+        [HttpGet]
+        public async Task<IActionResult> PeliculaActor(int id)
+        {
+            var consulta =
+                from A in _context.Actors
+                join AP in _context.ActorPeliculas on A.IdActor equals AP.IdActor
+                join PR in _context.PeliculaRepositories on AP.IdPelicula equals PR.IdPelicula
+                where A.IdActor == id
+                select new PeliculaRepository
+                {
+                    IdPelicula = PR.IdPelicula,
+                    Titulo = PR.Titulo,
+                    Duracion = PR.Duracion,
+                    Descripcion = PR.Descripcion,
+                    LinkPelicula = PR.LinkPelicula,
+                    LinkImagen = PR.LinkImagen
+                };
+            return View(consulta);
+        }
+        private async Task<IEnumerable<PeliculaRepository>> GetPeliculaPorGenero(int? id)
+        {
+            var consulta =
+
+                    from G in _context.Generos
+                    join PG in _context.PeliculaGeneros on G.IdGenero equals PG.IdGenero
+                    join PR in _context.PeliculaRepositories on PG.IdPelicula equals PR.IdPelicula
+                    where G.IdGenero == id
+                    select new PeliculaRepository
+                    {
+                        IdPelicula = PR.IdPelicula,
+                        Titulo = PR.Titulo,
+                        Duracion = PR.Duracion,
+                        Descripcion = PR.Descripcion,
+                        LinkPelicula = PR.LinkPelicula,
+                        LinkImagen = PR.LinkImagen
+                    };
+
+            return consulta;
         }
         [Authorize]
         public IActionResult Privacy()

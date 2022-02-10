@@ -1,0 +1,21 @@
+﻿
+@model IEnumerable<PeliculaRepository>
+@{
+    Layout = "_PeliculaLayout";
+    ViewData["Title"] = "Home Page";
+}
+<h1>Peliculas Destacadas </h1>
+
+<section class="main-container">
+    <div class="location">
+        <div class="box">
+            @foreach (var movie in Model)
+            {
+                <a  asp-action="Detail" asp-route-id="@movie.IdPelicula">
+                    <img src="@movie.LinkImagen" width="200px" height="250px" alt="@movie.Titulo" title=@movie.Titulo>
+                        @movie.Titulo
+                </a>
+            }
+        </div>
+    </div>
+</section>

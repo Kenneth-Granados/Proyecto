@@ -1,17 +1,6 @@
 /* _content/Pelicula/Views/Home/Index.cshtml.rz.scp.css */
 
 
-.helloWorld[b-f9gvvzn1d1] {
-    font-family: Arial;
-    font-size: 60px;
-    font-weight: bold;
-    color: blue;
-}
-
-
-
-
-
 /* MAIN CONTIANER */
 .main-container[b-f9gvvzn1d1] {
     padding: 50px;
@@ -38,39 +27,39 @@
         border-radius: 5px;
     }
 
+img[b-f9gvvzn1d1] {
+    max-width: 100%;
+}
+/* _content/Pelicula/Views/Home/PeliculasGeneros.cshtml.rz.scp.css */
 
-/* LINKS */
-/*.link {
+
+/* MAIN CONTIANER */
+.main-container[b-60ag9dejwj] {
     padding: 50px;
 }
 
-.sub-links ul {
-    list-style: none;
-    padding: 0;
+.box[b-60ag9dejwj] {
     display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
 }
 
-.sub-links a {
-    color: var(--dark);
-    text-decoration: none;
-}
-
-    .sub-links a:hover {
-        color: var(--dark);
-        text-decoration: underline;
+    .box a[b-60ag9dejwj] {
+        transition: transform .3s;
+        text-decoration: none;
     }
 
-.logos a {
-    padding: 10px;
-}
+        .box a:hover[b-60ag9dejwj] {
+            transition: transform .3s;
+            -ms-transform: scale(1.4);
+            -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+        }
 
-.logo {
-    color: var(--dark);
-}*/
+    .box img[b-60ag9dejwj] {
+        border-radius: 5px;
+    }
 
-img[b-f9gvvzn1d1] {
+img[b-60ag9dejwj] {
     max-width: 100%;
 }
 /* _content/Pelicula/Views/Shared/_Layout.cshtml.rz.scp.css */

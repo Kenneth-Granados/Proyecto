@@ -15,7 +15,8 @@ namespace Pelicula.Models.DB
             : base(options)
         {
         }
-
+        public virtual DbSet<Actor> Actors { get; set; } = null!;
+        public virtual DbSet<ActorPelicula> ActorPeliculas { get; set; } = null!;
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; } = null!;
         public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; } = null!;
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; } = null!;
@@ -23,6 +24,8 @@ namespace Pelicula.Models.DB
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } = null!;
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; } = null!;
         public virtual DbSet<Comentario> Comentarios { get; set; } = null!;
+        public virtual DbSet<Director> Directors { get; set; } = null!;
+        public virtual DbSet<DirectorPelicula> DirectorPeliculas { get; set; } = null!;
         public virtual DbSet<Genero> Generos { get; set; } = null!;
         public virtual DbSet<PeliculaGenero> PeliculaGeneros { get; set; } = null!;
         public virtual DbSet<PeliculaRepository> PeliculaRepositories { get; set; } = null!;
@@ -32,12 +35,44 @@ namespace Pelicula.Models.DB
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=localhost; Database=Pelicula; Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Actor>(entity =>
+            {
+                entity.HasKey(e => e.IdActor)
+                    .HasName("PK_Actor_IdActor");
+
+                entity.ToTable("Actor");
+
+                entity.Property(e => e.FullName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<ActorPelicula>(entity =>
+            {
+                entity.HasKey(e => e.IdActoresPelicula)
+                    .HasName("PK_ActorPelicula_IdActor");
+
+                entity.ToTable("ActorPelicula");
+
+                entity.HasOne(d => d.IdActorNavigation)
+                    .WithMany(p => p.ActorPeliculas)
+                    .HasForeignKey(d => d.IdActor)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.IdPeliculaNavigation)
+                    .WithMany(p => p.ActorPeliculas)
+                    .HasForeignKey(d => d.IdPelicula)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ActorPelicula_PeliculaReposotory_IdPelicula");
+            });
+
             modelBuilder.Entity<AspNetRole>(entity =>
             {
                 entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
@@ -70,9 +105,9 @@ namespace Pelicula.Models.DB
 
                 entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
 
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+                entity.Property(e => e.NormalizedUserName).HasMaxLength(50);
 
-                entity.Property(e => e.UserName).HasMaxLength(256);
+                entity.Property(e => e.UserName).HasMaxLength(50);
 
                 entity.HasMany(d => d.Roles)
                     .WithMany(p => p.Users)
@@ -135,9 +170,46 @@ namespace Pelicula.Models.DB
 
                 entity.Property(e => e.IdUsuario).HasMaxLength(450);
 
+                entity.HasOne(d => d.IdPeliculaNavigation)
+                    .WithMany(p => p.Comentarios)
+                    .HasForeignKey(d => d.IdPelicula)
+                    .HasConstraintName("FK_Comentario_PeliculaReposotory_IdPelicula");
+
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Comentarios)
                     .HasForeignKey(d => d.IdUsuario);
+            });
+
+            modelBuilder.Entity<Director>(entity =>
+            {
+                entity.HasKey(e => e.IdDirector)
+                    .HasName("PK_Director_IdDirector");
+
+                entity.ToTable("Director");
+
+                entity.Property(e => e.FullNombre)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<DirectorPelicula>(entity =>
+            {
+                entity.HasKey(e => e.IdDirectorPelicula)
+                    .HasName("PK_DirectorPelicula_IdDirectorPelicula");
+
+                entity.ToTable("DirectorPelicula");
+
+                entity.HasOne(d => d.IdDirectorNavigation)
+                    .WithMany(p => p.DirectorPeliculas)
+                    .HasForeignKey(d => d.IdDirector)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DirectorPelicula_Director_IdActor");
+
+                entity.HasOne(d => d.IdPeliculaNavigation)
+                    .WithMany(p => p.DirectorPeliculas)
+                    .HasForeignKey(d => d.IdPelicula)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DirectorPelicula_PeliculaReposotory_IdPelicula");
             });
 
             modelBuilder.Entity<Genero>(entity =>
@@ -150,11 +222,6 @@ namespace Pelicula.Models.DB
                 entity.Property(e => e.NombreGenero)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.IdPeliculaNavigation)
-                    .WithMany(p => p.Generos)
-                    .HasForeignKey(d => d.IdPelicula)
-                    .HasConstraintName("FK_Genero_Pelicula");
             });
 
             modelBuilder.Entity<PeliculaGenero>(entity =>
@@ -182,16 +249,8 @@ namespace Pelicula.Models.DB
 
                 entity.ToTable("PeliculaRepository");
 
-                entity.Property(e => e.Actores)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Director)
-                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.LinkImagen)

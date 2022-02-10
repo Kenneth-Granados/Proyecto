@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Pelicula.Models.PeliculaLite>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Duracion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkPelicula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkImagen)
+            </th>*@
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Duracion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkPelicula)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkImagen)
+                </td>*@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdPelicula">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdPelicula">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdPelicula">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

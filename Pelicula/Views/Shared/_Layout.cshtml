@@ -10,16 +10,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Pelicula.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" />
-    @*<link type="text/css" rel="stylesheet" href="~/css/LayoutPrincipal.css" />*@
-    
-        
-    <script src="main.js"></script>
-    
     
 </head>
 
-<body>
-    @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">*@
+<body class="bg-light">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 ">
         <div class="container">
             <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Pelicula</a>
@@ -41,7 +35,7 @@
         </div>
     </nav>
     
-    <div class="container">
+    <div class="container-lg">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

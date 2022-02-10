@@ -15,7 +15,7 @@ namespace Pelicula.Models.DB
             Puntuacions = new HashSet<Puntuacion>();
             Roles = new HashSet<AspNetRole>();
         }
-
+        [Key]
         public string Id { get; set; } = null!;
         public bool Estado { get; set; }
         public string? UserName { get; set; }

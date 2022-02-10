@@ -1,56 +1,46 @@
-﻿@*<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <div>
-        @RenderBody()
-    </div>
-</body>
-</html>*@
-
-@{
+﻿@{
     Layout = "_Layout.cshtml";
 }
 
-<br />
+<html>
 
-<div class="container">
-
-    <div class="row">
-        <div class="col-md-8">
-            <a class="btn btn-outline-primary btn-block">Accion</a>
-            <a class="btn btn-outline-primary btn-block">Aventura</a>
-            <a class="btn btn-outline-primary btn-block">Drama</a>
-            <a class="btn btn-outline-primary btn-block">Comedia</a>
-            <a class="btn btn-outline-primary btn-block">Terror</a>
-            <a class="btn btn-outline-primary btn-block">Crimen</a>
-            <a class="btn btn-outline-primary btn-block">Suspenso</a>
-            <a class="btn btn-outline-primary btn-block">Fantasia</a>
-        </div>
-         @*<div class="col-6 col-md-4">*@
-        <div class="col-md-4 ">
-            <div class="container" style="position :relative !important; left: 30% !important;">
-                <div class="justify-content-end">
+<body>
+    <br />
+    <div class="container">
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-lg">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <div class="col-md-12">
+                            <a class="btn btn-outline-primary btn-block">Accion</a>
+                            <a class="btn btn-outline-primary btn-block">Aventura</a>
+                            <a class="btn btn-outline-primary btn-block">Comedia</a>
+                            <a class="btn btn-outline-primary btn-block">Terror</a>
+                            <a class="btn btn-outline-primary btn-block">Crimen</a>
+                            <a class="btn btn-outline-primary btn-block">Suspenso</a>
+                            <a class="btn btn-outline-primary btn-block">Fantasia</a>
+                        </div>
+                        @await Component.InvokeAsync("DropdownGeneros");
+                        
+                    </ul>
                     <form class="d-flex">
-                        <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" style="width:170px">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <input class="form-control me-2" type="search" placeholder="Search" name="MovieSearch"
+                            value="@ViewData["GetMovies"]" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit" asp-action="Index"
+                            asp-controller="Home">Buscar</button>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>     
-   
-   <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </nav>
+        < <div class="container-lg">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
     </div>
-</div>
-<br />
+    </div>
 
-<hr/>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+</body>
 
+</html>
