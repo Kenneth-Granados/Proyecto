@@ -1,6 +1,6 @@
 ﻿
 
-@model PeliculaRepository;
+@model PeliculaDetail;
 @{
     Layout = "_PeliculaLayout";
     ViewData["Title"] = "Datail";
@@ -9,29 +9,56 @@
 @*<div class="text-white container">*@
 <div class="container">
     <br />
-    <h3>@Model.Titulo</h3>
+    <h3>@Model.PeliculaBase.Titulo</h3>
     <hr />
     
     <br />
     <div class="detailbox row">
         <div class="col-md-3 col-sm-0">
-            <img src="@Model.LinkImagen" width="260px" height="300px" title=@Model.Titulo />
+            <img src="@Model.PeliculaBase.LinkImagen" width="260px" height="300px" title=@Model.PeliculaBase.Titulo />
         </div>
 
         <div class="col-md-9 col-sm-10">
             
             <div class="row pr-3">
                 <div class="col-md-7">
-                    <h4>@Model.Titulo</h4>
-                    <p class="lead Parrafo">@Model.Descripcion</p>
+                    <h4>@Model.PeliculaBase.Titulo</h4>
+                    <p class="lead Parrafo">@Model.PeliculaBase.Descripcion</p>
                 </div>
                 <div class="col-md-5">
                     <h6></h6><br />
-
-                    @*<h6><span class="text-danger">Director</span> : @Model.Director</h6>
-                    <h6><span class="text-danger">Actors</span> : @Model.Actores</h6>
-                    <h6><span class="text-danger">Director</span> : @Model.Director</h6>*@
-                    <h6><span class="text-danger">Runtime</span> : @Model.Duracion</h6>
+                    <h6><span class="text-danger">Actores : </span></h6>
+                    <div style="display: inline-block">
+                        @{
+                            var totalActores = Model.ListActores.Count;
+                        }
+                        @for (var i = 0; i < totalActores ; i++)
+                        {
+                            var actor = Model.ListActores[i];
+                            <a asp-action="PeliculaActor" asp-controller="Home" asp-route-id="@actor.IdActor"  >@actor.FullName</a>
+                            if(i != totalActores-1)
+                            {
+                                <span>,</span>
+                            }
+                        }
+                    </div>
+                    <h6><span class="text-danger">Generos : </span></h6>
+                    <div style="display: inline-block">
+                        @{
+                            var totalGeneros = Model.ListGenero.Count;
+                        }
+                        @for (var i = 0; i < totalGeneros; i++)
+                        {
+                            var genero = Model.ListGenero[i];
+                            <a asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="@genero.IdGenero"  >@genero.NombreGenero</a>
+                            if( i != totalGeneros - 1)
+                            {
+                                <span>,</span>
+                            }
+                        }
+                    </div>
+                   <h6><span class="text-danger">Director</span> : @Model.PeliculaBase.DirectorPeliculas</h6>
+                   <h6><span class="text-danger">Duracion</span> : @Model.PeliculaBase.Duracion</h6>
                 
                 </div>
             </div>
@@ -39,7 +66,7 @@
     </div>
     <br />
     <div>
-        <iframe width="100%" height="500" src="@Model.LinkPelicula" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="500" src="@Model.PeliculaBase.LinkPelicula" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <br />

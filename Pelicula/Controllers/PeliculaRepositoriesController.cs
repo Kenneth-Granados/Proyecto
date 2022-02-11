@@ -16,6 +16,7 @@ using System.Reflection;
 
 namespace Pelicula.Controllers
 {
+ 
     public class PeliculaRepositoriesController : Controller
     {
         private readonly PeliculaContext _context;
@@ -74,7 +75,7 @@ namespace Pelicula.Controllers
         public async Task<IActionResult> Create(PeliculaFull full)
         {
             //    return RedirectToAction(nameof(Index));
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var parametroId = new SqlParameter("@IdPelicula", SqlDbType.Int);
                 parametroId.Direction = ParameterDirection.Output;
@@ -242,14 +243,16 @@ namespace Pelicula.Controllers
        
         private List<string> SplitFullList(string cadena)
         {
-            List<string> retorno = null;
-            cadena.Split(",").ToList().ForEach(i =>
+            List<string> retorno = new List<string>(); 
+
+            var partes = cadena.Split(",");
+            foreach (var item in partes)
             {
-                if(i != "")
+                if (item != "")
                 {
-                    retorno.Add(i);
+                    retorno.Add(item);
                 }
-            });
+            }
             return retorno;
         }
         private bool FormatoCorrecto(string cadena)

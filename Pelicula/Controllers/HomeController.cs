@@ -51,7 +51,39 @@ namespace Pelicula.Controllers
             {
                 return NotFound();
             }
-            return View(p);
+            PeliculaDetail d = new PeliculaDetail();
+            d.PeliculaBase = p;
+
+            // Se cargan la lista de actores de la pelicula
+            await Task.Run( async () =>
+            {
+                var l =
+                        from A in _context.Actors
+                        join AP in _context.ActorPeliculas on A.IdActor equals AP.IdActor
+                        where AP.IdPelicula == d.PeliculaBase.IdPelicula
+                        select new Actor
+                        {
+                            IdActor = A.IdActor,
+                            FullName = A.FullName
+                        };
+                d.ListActores = await l.ToListAsync();
+            });
+            //Se cargan la lista de generos de la pelicual
+            await Task.Run(async () =>
+            {
+                var g =
+                    from PR in _context.PeliculaRepositories
+                    join PG in _context.PeliculaGeneros on PR.IdPelicula equals PG.IdPelicula
+                    join G in _context.Generos on PG.IdGenero equals G.IdGenero
+                    where PR.IdPelicula == d.PeliculaBase.IdPelicula
+                    select new Genero
+                    {
+                        IdGenero = G.IdGenero,
+                        NombreGenero = G.NombreGenero
+                    };
+                d.ListGenero = await g.ToListAsync();
+            });
+            return View(d);
         }
         [HttpGet]
         public async Task<IActionResult> PeliculasGeneros(int? id)
@@ -61,16 +93,32 @@ namespace Pelicula.Controllers
                 return NotFound();
             }
             var gen = await _context.Generos.FindAsync(id);
+            
             if (gen == null)
             {
                 return NotFound();
             }
+            ViewBag.Message = gen.NombreGenero;
             return View(await GetPeliculaPorGenero(id));
         }
         [HttpGet]
         public async Task<IActionResult> PeliculaActor(int id)
         {
-            var consulta =
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var actor = await _context.Actors.FindAsync(id);
+
+            if (actor == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Message = actor.FullName;
+            List<PeliculaRepository> consulta = new List<PeliculaRepository>();
+            await Task.Run(async () =>
+            {
+                var c =
                 from A in _context.Actors
                 join AP in _context.ActorPeliculas on A.IdActor equals AP.IdActor
                 join PR in _context.PeliculaRepositories on AP.IdPelicula equals PR.IdPelicula
@@ -84,16 +132,20 @@ namespace Pelicula.Controllers
                     LinkPelicula = PR.LinkPelicula,
                     LinkImagen = PR.LinkImagen
                 };
+                consulta = await c.ToListAsync();
+
+           });
             return View(consulta);
         }
         private async Task<IEnumerable<PeliculaRepository>> GetPeliculaPorGenero(int? id)
         {
-            var consulta =
-
-                    from G in _context.Generos
-                    join PG in _context.PeliculaGeneros on G.IdGenero equals PG.IdGenero
+            List<PeliculaRepository> consulta = new List<PeliculaRepository>();
+            await Task.Run(async () =>
+            {
+                var c =
+                    from PG in _context.PeliculaGeneros 
                     join PR in _context.PeliculaRepositories on PG.IdPelicula equals PR.IdPelicula
-                    where G.IdGenero == id
+                    where PG.IdGenero == id
                     select new PeliculaRepository
                     {
                         IdPelicula = PR.IdPelicula,
@@ -104,6 +156,8 @@ namespace Pelicula.Controllers
                         LinkImagen = PR.LinkImagen
                     };
 
+                consulta = await c.ToListAsync();
+            });
             return consulta;
         }
         [Authorize]

@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <div class="col-md-12">
-                            <a class="btn btn-outline-primary btn-block">Accion</a>
+                            <a class="btn btn-outline-primary btn-block" asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="1">Accion</a>
                             <a class="btn btn-outline-primary btn-block">Aventura</a>
                             <a class="btn btn-outline-primary btn-block">Comedia</a>
                             <a class="btn btn-outline-primary btn-block">Terror</a>
@@ -20,23 +20,21 @@
                             <a class="btn btn-outline-primary btn-block">Suspenso</a>
                             <a class="btn btn-outline-primary btn-block">Fantasia</a>
                         </div>
-                        @await Component.InvokeAsync("DropdownGeneros");
-                        
+                        @await Component.InvokeAsync("DropdownGeneros");  
                     </ul>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" name="MovieSearch"
                             value="@ViewData["GetMovies"]" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit" asp-action="Index"
-                            asp-controller="Home">Buscar</button>
+                        <button class="btn btn-outline-success" type="submit" asp-action="Index" asp-controller="Home">Buscar</button>
                     </form>
                 </div>
             </div>
         </nav>
-        < <div class="container-lg">
+        <div class="container-lg">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
-    </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>

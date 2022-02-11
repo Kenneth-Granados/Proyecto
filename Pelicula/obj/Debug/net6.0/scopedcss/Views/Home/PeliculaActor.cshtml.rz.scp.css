@@ -1,0 +1,31 @@
+
+
+/* MAIN CONTIANER */
+.main-container[b-1ac8drf9w4] {
+    padding: 50px;
+}
+
+.box[b-1ac8drf9w4] {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
+}
+
+    .box a[b-1ac8drf9w4] {
+        transition: transform .3s;
+        text-decoration: none;
+    }
+
+        .box a:hover[b-1ac8drf9w4] {
+            transition: transform .3s;
+            -ms-transform: scale(1.4);
+            -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+        }
+
+    .box img[b-1ac8drf9w4] {
+        border-radius: 5px;
+    }
+
+img[b-1ac8drf9w4] {
+    max-width: 100%;
+}

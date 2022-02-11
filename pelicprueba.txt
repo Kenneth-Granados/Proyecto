@@ -1,0 +1,10 @@
+Nombre = Spider-Man: Sin camino a casa (No Way Home)
+
+Descripcion = Peter Parker está desenmascarado y ya no puede separar su vida normal de las altas apuestas de ser un superhéroe. Cuando le pide ayuda al Doctor Strange, lo que está en juego se vuelve aún más peligroso, lo que lo obliga a descubrir lo que realmente significa ser Spider-Man.
+
+
+
+video = https://nupload.me/watch/LAePMjzpU0HpDvcC8hZoIP82ttew8rj8LqO6Nir7kz7hIY?h=
+imagen = https://tmdbcdn.fun/sys/poster/i7ix1g0l0eyfs3ou5iup5cr-m.jpg
+
+Tom Holland,Zendaya,Benedict Cumberbatch,Jacob Batalon,Jon Favreau,Jamie Foxx,Willem Dafoe,Alfred Molina,Benedict Wong,Tony Revolori,Marisa Tomei,Andrew Garfield,Tobey Maguire

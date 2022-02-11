@@ -22,8 +22,6 @@ builder.Services.AddTransient<PeliculaServices>();
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>
 
 
-
-
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>
 //    (
 //        options => options.SignIn.RequireConfirmedAccount = false
@@ -38,9 +36,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>
     .AddDefaultUI()
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<PeliculaDBContext>();
-
-
-
 
 
 builder.Services.AddControllersWithViews();//
@@ -73,6 +68,9 @@ app.UseEndpoints(endPoint =>
 app.Run();
 
 // Scaffold-DbContext "Server=localhost; Database=Pelicula; Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/DB
+
+// "PeliculaDBContextConnection": "Server=localhost;Database=Pelicula;Trusted_Connection=True;MultipleActiveResultSets=true"
+
 
 //namespace Pelicula
 //{
