@@ -57,7 +57,7 @@
                             }
                         }
                     </div>
-                   <h6><span class="text-danger">Director</span> : @Model.PeliculaBase.DirectorPeliculas</h6>
+                   @* <h6><span class="text-danger">Director</span> : @Model.PeliculaBase.DirectorPeliculas</h6> *@
                    <h6><span class="text-danger">Duracion</span> : @Model.PeliculaBase.Duracion</h6>
                 
                 </div>
@@ -70,6 +70,10 @@
     </div>
 
     <br />
+    <div class="row">
+        <partial name="_ComentarioPartial"></partial>
+    </div>
+@* @Section Scripts {
     
-
+} *@
 </div>

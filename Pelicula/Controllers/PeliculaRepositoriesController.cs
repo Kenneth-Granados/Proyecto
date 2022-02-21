@@ -75,72 +75,88 @@ namespace Pelicula.Controllers
         public async Task<IActionResult> Create(PeliculaFull full)
         {
             //    return RedirectToAction(nameof(Index));
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var parametroId = new SqlParameter("@IdPelicula", SqlDbType.Int);
-                parametroId.Direction = ParameterDirection.Output;
+                /*
+                using(var trasn = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var parametroId = new SqlParameter("@IdPelicula", SqlDbType.Int);
+                        parametroId.Direction = ParameterDirection.Output;
 
-                await _context
-                    .Database
-                    .ExecuteSqlInterpolatedAsync
-                    (
-                        $@"EXEC SP_InsertMovie 
-                        @IdPelicula={parametroId} OUTPUT, 
-                        @Titulo={full.Titulo},
-                        @Duracion = {full.Duracion},
-                        @Descripcion = {full.Descripcion},
-                        @LinkPelicula = {full.LinkPelicula},
-                        @LinkImagen = {full.LinkImagen}"
-                    );
-                var idPeliculaInsertada = (int)parametroId.Value;
-                List<int> listIdActores = new List<int>();
-                
-                foreach (var item in SplitFullList(full.ListaActores))
-                {
-                    var SearchActor = await _context.Actors.FirstOrDefaultAsync(m => m.FullName == item);
-                    if(SearchActor != null)
-                    {
-                        listIdActores.Add(SearchActor.IdActor);
-                    }
-                    else
-                    {
-                        var parametroIdActor = new SqlParameter("@IdActor", SqlDbType.Int);
-                        parametroIdActor.Direction = ParameterDirection.Output;
-                        await _context.Database.ExecuteSqlInterpolatedAsync($@"EXEC SP_InsertActor @IdActor={parametroIdActor} OUTPUT, @FullName ={item}");
-                        var IdActorInsertado = (int)parametroIdActor.Value;
-                        listIdActores.Add(IdActorInsertado);
-                    }
-                }
-                
-                List<ActorPelicula> relacionPeliculaActor = new List<ActorPelicula>();
-                foreach (var item in listIdActores)
-                {
-                    relacionPeliculaActor.Add
+                        await _context.Database.ExecuteSqlInterpolatedAsync
                         (
-                            new ActorPelicula 
-                            { 
-                                IdPelicula = idPeliculaInsertada, 
-                                IdActor = item 
-                            }
+                            $@"EXEC SP_InsertMovie 
+                            @IdPelicula={parametroId} OUTPUT, 
+                            @Titulo={full.Titulo},
+                            @Duracion = {full.Duracion},
+                            @Descripcion = {full.Descripcion},
+                            @LinkPelicula = {full.LinkPelicula},
+                            @LinkImagen = {full.LinkImagen}"
                         );
-                }
-                await _context.ActorPeliculas.AddRangeAsync(relacionPeliculaActor);
+                        var idPeliculaInsertada = (int)parametroId.Value;
+                        List<int> listIdActores = new List<int>();
+                    
+                        foreach (var item in SplitFullList(full.ListaActores))
+                        {
+                            var SearchActor = await _context.Actors.FirstOrDefaultAsync(m => m.FullName == item);
+                            if(SearchActor != null)
+                            {
+                                listIdActores.Add(SearchActor.IdActor);
+                            }
+                            else
+                            {
+                                var parametroIdActor = new SqlParameter("@IdActor", SqlDbType.Int);
+                                parametroIdActor.Direction = ParameterDirection.Output;
+                                await _context.Database.ExecuteSqlInterpolatedAsync($@"EXEC SP_InsertActor @IdActor={parametroIdActor} OUTPUT, @FullName ={item}");
+                                var IdActorInsertado = (int)parametroIdActor.Value;
+                                listIdActores.Add(IdActorInsertado);
+                            }
+                        }
                 
-                List<PeliculaGenero> relacionPeliculaGenero = new List<PeliculaGenero>();
-                foreach (var item in full.GenerosIds)
-                {
-                    relacionPeliculaGenero.Add
-                        (
-                            new PeliculaGenero 
-                            { 
-                                IdPelicula = idPeliculaInsertada,
-                                IdGenero = item
-                            }
-                        );
-                }
-                await _context.PeliculaGeneros.AddRangeAsync(relacionPeliculaGenero);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                        List<ActorPelicula> relacionPeliculaActor = new List<ActorPelicula>();
+                        foreach (var item in listIdActores)
+                        {
+                            relacionPeliculaActor.Add
+                                (
+                                    new ActorPelicula 
+                                    { 
+                                        IdPelicula = idPeliculaInsertada, 
+                                        IdActor = item 
+                                    }
+                                );
+                        }
+                        await _context.ActorPeliculas.AddRangeAsync(relacionPeliculaActor);
+                    
+                        List<PeliculaGenero> relacionPeliculaGenero = new List<PeliculaGenero>();
+                        foreach (var item in full.GenerosIds)
+                        {
+                            relacionPeliculaGenero.Add
+                                (
+                                    new PeliculaGenero 
+                                    { 
+                                        IdPelicula = idPeliculaInsertada,
+                                        IdGenero = item
+                                    }
+                                );
+                        }
+                        await _context.PeliculaGeneros.AddRangeAsync(relacionPeliculaGenero);
+                        await _context.SaveChangesAsync();
+                        
+                        await trasn.CommitAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (System.Exception)
+                    {
+                        trasn.Rollback();
+                    }
+                    
+                }// End Transacion
+                */
+            }
+            else{
+                
             }
             full.ListGeneros = await GetAllGeneros();
             return View(full);
@@ -269,8 +285,7 @@ namespace Pelicula.Controllers
                 }
                 else
                 {
-                    var pr = item.IndexOf(" ") == -1 || item.Length < 5;
-                    if (!Regex.IsMatch(item, "^[a-zA-Z ]*$") || pr)
+                    if (!Regex.IsMatch(item, "^[a-zA-Z ]*$") || item.Length < 5)
                     {
                         bandera = false;
                         break;

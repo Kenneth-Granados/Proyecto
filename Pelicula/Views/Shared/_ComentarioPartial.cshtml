@@ -1,0 +1,17 @@
+
+@model Pelicula.Models.PeliculaDetail;
+<br>
+<div class="overflow-auto" style="height: 300px;" id="comments-container">
+    @if(Model.ListComentarios.Count == 0 || Model.ListComentarios == null){
+        <h2>No se paso nada al modelo</h2>
+    }
+    @foreach (var item in Model.ListComentarios)
+    {
+        <p>@item.Comentario1</p>
+    }
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Escribe tu comentario</label>
+  <textarea class="form-control" id="CommentTextArea" rows="3"></textarea>
+  <button id="add-comment" class="btn btn-primaery">Enviar</button>
+</div>

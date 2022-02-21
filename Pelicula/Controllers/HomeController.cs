@@ -31,11 +31,13 @@ namespace Pelicula.Controllers
         public async Task<IActionResult> Index(string MovieSearch)
         {
             ViewData["GetMovies"] = MovieSearch;
-            var moviequery = from x in _context.PeliculaRepositories select x;
+            var moviequery = from x in _context.PeliculaRepositories  select x;
             
             if (!String.IsNullOrEmpty(MovieSearch))
             {
-                moviequery = moviequery.Where(x => x.Titulo.Contains(MovieSearch));
+                moviequery = moviequery
+                    .Where(x => x.Titulo.Contains(MovieSearch))
+                    .OrderByDescending(d => d.IdPelicula);
             }
             return View(await moviequery.AsNoTracking().ToListAsync());
         }
@@ -83,6 +85,16 @@ namespace Pelicula.Controllers
                     };
                 d.ListGenero = await g.ToListAsync();
             });
+            await Task.Run( async ()=>{
+                var c =
+                    from CM in _context.Comentarios where CM.IdPelicula == d.PeliculaBase.IdPelicula
+                    select new Comentario
+                    {
+                        IdComentario = CM.IdComentario,
+                        Comentario1 = CM.Comentario1
+                    };
+                d.ListComentarios = await c.ToListAsync();
+            });
             return View(d);
         }
         [HttpGet]
@@ -123,6 +135,7 @@ namespace Pelicula.Controllers
                 join AP in _context.ActorPeliculas on A.IdActor equals AP.IdActor
                 join PR in _context.PeliculaRepositories on AP.IdPelicula equals PR.IdPelicula
                 where A.IdActor == id
+                orderby PR.IdPelicula descending
                 select new PeliculaRepository
                 {
                     IdPelicula = PR.IdPelicula,
@@ -146,6 +159,7 @@ namespace Pelicula.Controllers
                     from PG in _context.PeliculaGeneros 
                     join PR in _context.PeliculaRepositories on PG.IdPelicula equals PR.IdPelicula
                     where PG.IdGenero == id
+                    orderby PR.IdPelicula descending
                     select new PeliculaRepository
                     {
                         IdPelicula = PR.IdPelicula,
@@ -170,6 +184,12 @@ namespace Pelicula.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public JsonResult AddComment(ComentarioViewModel comentario)
+        {
+
+            return Json(1);
         }
     }
 

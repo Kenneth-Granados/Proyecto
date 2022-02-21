@@ -21,7 +21,8 @@ namespace Pelicula.Models.DB
         public string? Descripcion { get; set; }
         public string? LinkPelicula { get; set; }
         public string? LinkImagen { get; set; }
-
+   
+    
         public virtual ICollection<ActorPelicula> ActorPeliculas { get; set; }
         public virtual ICollection<Comentario> Comentarios { get; set; }
         public virtual ICollection<DirectorPelicula> DirectorPeliculas { get; set; }
