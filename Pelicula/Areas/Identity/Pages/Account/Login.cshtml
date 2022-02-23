@@ -1,7 +1,5 @@
-﻿
-@page
+﻿@page
 @model LoginModel
-
 @{
     ViewData["Title"] = "Log in";
 }
@@ -13,10 +11,10 @@
                 <section>
                     <form id="account" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="Input.Email"></label>
-                            <input asp-for="Input.Email" class="form-control" />
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">@@</span>
+                            <input asp-for="Input.UserName" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Input.Password"></label>

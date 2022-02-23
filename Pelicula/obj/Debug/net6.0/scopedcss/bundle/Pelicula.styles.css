@@ -1,3 +1,20 @@
+/* _content/Pelicula/Views/Home/Detail.cshtml.rz.scp.css */
+.comment-wrapper .panel-body[b-ff19986ulm] {
+    max-height: 650px;
+    overflow: auto;
+}
+
+.comment-wrapper .media-list .media img[b-ff19986ulm] {
+    /*width: 64px;
+    height: 64px;*/
+    border: 4px solid #000000;
+}
+
+.comment-wrapper .media-list .media[b-ff19986ulm] {
+    border-bottom: 2px dashed #808080ff;
+    margin-bottom: 25px;
+}
+
 /* _content/Pelicula/Views/Home/Index.cshtml.rz.scp.css */
 
 
@@ -93,6 +110,23 @@ img[b-1ac8drf9w4] {
 
 img[b-60ag9dejwj] {
     max-width: 100%;
+}
+/* _content/Pelicula/Views/Shared/_ComentarioPartial.cshtml.rz.scp.css */
+
+.comment-wrapper .panel-body[b-cj98e3jtf8] {
+    max-height: 650px;
+    overflow: auto;
+}
+
+.comment-wrapper .media-list .media img[b-cj98e3jtf8] {
+    /*width: 64px;
+    height: 64px;*/
+    border: 4px solid #000000;
+}
+
+.comment-wrapper .media-list .media[b-cj98e3jtf8] {
+    border-bottom: 2px dashed #808080ff;
+    margin-bottom: 25px;
 }
 /* _content/Pelicula/Views/Shared/_Layout.cshtml.rz.scp.css */
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification

@@ -13,10 +13,12 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
+using Syncfusion.EJ2.Spreadsheet;
 
 namespace Pelicula.Controllers
 {
- 
+    [Authorize(Roles = "Admin")]
     public class PeliculaRepositoriesController : Controller
     {
         private readonly PeliculaContext _context;

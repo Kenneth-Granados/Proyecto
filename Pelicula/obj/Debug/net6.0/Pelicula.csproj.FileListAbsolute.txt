@@ -5,7 +5,6 @@ C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\Pelicula.exe
 C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\Pelicula.deps.json
 C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\Pelicula.runtimeconfig.json
 C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\Pelicula.dll
-C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\ref\Pelicula.dll
 C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\Pelicula.pdb
 C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\Humanizer.dll
 C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\MessagePack.dll
@@ -274,3 +273,6 @@ C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\Syncfusion.EJ2.dll
 C:\Users\user\Desktop\Proyecto\Pelicula\bin\Debug\net6.0\Syncfusion.Licensing.dll
 C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\scopedcss\Views\Home\PeliculasGeneros.cshtml.rz.scp.css
 C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\scopedcss\Views\Home\PeliculaActor.cshtml.rz.scp.css
+C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\scopedcss\Views\Home\Detail.cshtml.rz.scp.css
+C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\scopedcss\Views\Shared\_ComentarioPartial.cshtml.rz.scp.css
+C:\Users\user\Desktop\Proyecto\Pelicula\obj\Debug\net6.0\refint\Pelicula.dll

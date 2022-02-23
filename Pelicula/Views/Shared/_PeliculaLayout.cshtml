@@ -20,7 +20,7 @@
                             <a class="btn btn-outline-primary btn-block">Suspenso</a>
                             <a class="btn btn-outline-primary btn-block">Fantasia</a>
                         </div>
-                        @await Component.InvokeAsync("DropdownGeneros");  
+                        @await Component.InvokeAsync("DropdownGeneros") 
                     </ul>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" name="MovieSearch"
@@ -40,6 +40,7 @@
     <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Styles", required: false)
 </body>
 
 </html>

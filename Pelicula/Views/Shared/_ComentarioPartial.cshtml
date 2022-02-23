@@ -1,17 +1,36 @@
 
-@model Pelicula.Models.PeliculaDetail;
-<br>
-<div class="overflow-auto" style="height: 300px;" id="comments-container">
-    @if(Model.ListComentarios.Count == 0 || Model.ListComentarios == null){
-        <h2>No se paso nada al modelo</h2>
-    }
-    @foreach (var item in Model.ListComentarios)
-    {
-        <p>@item.Comentario1</p>
-    }
-</div>
-<div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label">Escribe tu comentario</label>
-  <textarea class="form-control" id="CommentTextArea" rows="3"></textarea>
-  <button id="add-comment" class="btn btn-primaery">Enviar</button>
-</div>
+@model List<Pelicula.Models.ComentarioDetail>
+
+@if(Model.Count > 0)
+{
+    <h2 class="text-center">
+        <strong class="text-success">Lista de comentarios</strong>
+    </h2>  
+    <div class="container">
+        <div class="row bootstrap snippets bootdeys">
+            <div class="col-md-12 col-sm-12">
+                <div class="comment-wrapper">
+                    <ul class="media-list">
+                        @foreach (var item in Model)
+                        {
+                            <li class="media">
+                                <div class="media-body">
+                                    <span class="text-muted pull-right">
+                                        <small class="text-muted">@item.Fecha</small>
+                                    </span>
+                                    <strong class="text-success">@item.UserName</strong>
+                                    <p>@item.Comentario</p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}else
+{
+    <h2 class="text-center">Sé el primero el primero en comentar</h2>   
+}
+
+

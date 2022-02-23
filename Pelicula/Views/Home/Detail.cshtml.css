@@ -1,0 +1,16 @@
+﻿.comment-wrapper .panel-body {
+    max-height: 650px;
+    overflow: auto;
+}
+
+.comment-wrapper .media-list .media img {
+    /*width: 64px;
+    height: 64px;*/
+    border: 4px solid #000000;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom: 2px dashed #808080ff;
+    margin-bottom: 25px;
+}
+

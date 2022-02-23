@@ -7,7 +7,7 @@ using Pelicula.Models;
 
 namespace Pelicula.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class RoleManagementController : Controller
     {
         // Administrador de usuarios
@@ -97,6 +97,7 @@ namespace Pelicula.Controllers
             
             return View();
         }
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> AddUserToRole([Bind("UserId,RoleName")] UserRole userRole)
         {

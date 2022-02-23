@@ -1,17 +1,20 @@
-﻿
-
-@model PeliculaDetail;
+﻿@model PeliculaDetail;
 @{
     Layout = "_PeliculaLayout";
     ViewData["Title"] = "Datail";
 }
+@using Microsoft.AspNetCore.Identity
+@using Pelicula.Areas.Identity.Data
 
-@*<div class="text-white container">*@
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 <div class="container">
+    
     <br />
     <h3>@Model.PeliculaBase.Titulo</h3>
     <hr />
-    
     <br />
     <div class="detailbox row">
         <div class="col-md-3 col-sm-0">
@@ -19,7 +22,7 @@
         </div>
 
         <div class="col-md-9 col-sm-10">
-            
+
             <div class="row pr-3">
                 <div class="col-md-7">
                     <h4>@Model.PeliculaBase.Titulo</h4>
@@ -32,11 +35,12 @@
                         @{
                             var totalActores = Model.ListActores.Count;
                         }
-                        @for (var i = 0; i < totalActores ; i++)
+                        @for (var i = 0; i < totalActores; i++)
                         {
                             var actor = Model.ListActores[i];
-                            <a asp-action="PeliculaActor" asp-controller="Home" asp-route-id="@actor.IdActor"  >@actor.FullName</a>
-                            if(i != totalActores-1)
+                            <a asp-action="PeliculaActor" asp-controller="Home"
+                            asp-route-id="@actor.IdActor">@actor.FullName</a>
+                            if (i != totalActores - 1)
                             {
                                 <span>,</span>
                             }
@@ -50,30 +54,53 @@
                         @for (var i = 0; i < totalGeneros; i++)
                         {
                             var genero = Model.ListGenero[i];
-                            <a asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="@genero.IdGenero"  >@genero.NombreGenero</a>
-                            if( i != totalGeneros - 1)
+                            <a asp-action="PeliculasGeneros" asp-controller="Home"
+                            asp-route-id="@genero.IdGenero">@genero.NombreGenero</a>
+                            if (i != totalGeneros - 1)
                             {
                                 <span>,</span>
                             }
                         }
                     </div>
-                   @* <h6><span class="text-danger">Director</span> : @Model.PeliculaBase.DirectorPeliculas</h6> *@
-                   <h6><span class="text-danger">Duracion</span> : @Model.PeliculaBase.Duracion</h6>
-                
+                    @* <h6><span class="text-danger">Director</span> : @Model.PeliculaBase.DirectorPeliculas</h6> *@
+                    <h6><span class="text-danger">Duracion</span> : @Model.PeliculaBase.Duracion</h6>
+
                 </div>
             </div>
         </div>
     </div>
     <br />
     <div>
-        <iframe width="100%" height="500" src="@Model.PeliculaBase.LinkPelicula" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="500" src="@Model.PeliculaBase.LinkPelicula" frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-
     <br />
     <div class="row">
-        <partial name="_ComentarioPartial"></partial>
+        @if (SignInManager.IsSignedIn(User))
+        {    
+            <div class="mb-3">
+                @{
+                    var id = @UserManager.GetUserId(User);
+                }
+                <form id="frm" asp-action="AddComentario" onsubmit="return jQueryAjaxPostAddComentario(this);">
+                    <input type="hidden" asp-for="PeliculaBase.IdPelicula" name="IdPelicula" />
+                    <input type="hidden" value="@id" name="UserName" />
+                    <label for="exampleFormControlTextarea1" id="numero" class="form-label">Escribe tu comentario </label>
+                    <textarea class="form-control" id="CommentTextArea" name="Comentario" rows="3"></textarea>
+                    <br/>
+                    <button id="add-comment" class="btn btn-info pull-right">Comentar</button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <h2 class="text-center">Inicia sesion o registrate para comentar</h2>   
+        }
+
     </div>
-@* @Section Scripts {
+    <br />
+    <div class="row" id="view-all">
+        @await Html.PartialAsync("_ComentarioPartial",Model.ListComentarios)
+    </div>
     
-} *@
-</div>
+

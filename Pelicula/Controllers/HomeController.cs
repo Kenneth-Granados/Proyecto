@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Pelicula.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
-
+using Pelicula.Servicios;
 
 namespace Pelicula.Controllers
 {
@@ -41,7 +41,51 @@ namespace Pelicula.Controllers
             }
             return View(await moviequery.AsNoTracking().ToListAsync());
         }
-    
+        //public async Task<IActionResult> AddComentario([Bind("IdPelicula,IdUsuario,Comentario1")] Comentario cm)
+        //{
+
+        //    return Json(new { isValid = true });
+        //}
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> AddComentario(string Comentario, int IdPelicula, string UserName)
+        {
+            var id = await _context.PeliculaRepositories.FindAsync(IdPelicula);
+            var us = await _context.AspNetUsers.FindAsync(UserName);
+
+            if (id == null || us == null)
+            {
+                return Json(new { isValid = true, html = "" });
+            }
+            else
+            {
+                _context.Comentarios.Add(new Comentario
+                {
+                    IdPelicula = id.IdPelicula,
+                    IdUsuario = us.Id,
+                    Fecha = DateTime.Now,
+                    Comentario1 = Comentario
+                });
+                await _context.SaveChangesAsync();
+                List<ComentarioDetail> ListComentarios = new List<ComentarioDetail>();
+                await Task.Run(async () => {
+                    var c =
+                        from CM in _context.Comentarios
+                        join U in _context.AspNetUsers on CM.IdUsuario equals U.Id
+                        orderby CM.IdComentario descending
+                        where CM.IdPelicula == id.IdPelicula
+                        select new ComentarioDetail
+                        {
+                            UserName = U.UserName,
+                            Fecha = DateTime.Now,
+                            Comentario = CM.Comentario1
+                        };
+                    ListComentarios = await c.ToListAsync();
+                });
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ComentarioPartial", ListComentarios) });
+            }
+                //return Json(new { isValid = true, cagada = "Cadena con texto = "+ Comentario + " = "+ UserName });
+        }
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null)
@@ -85,18 +129,25 @@ namespace Pelicula.Controllers
                     };
                 d.ListGenero = await g.ToListAsync();
             });
+            // Se cargan la lista de los comentarios de la pelicula
             await Task.Run( async ()=>{
                 var c =
-                    from CM in _context.Comentarios where CM.IdPelicula == d.PeliculaBase.IdPelicula
-                    select new Comentario
+                    from CM in _context.Comentarios 
+                    join U in _context.AspNetUsers on CM.IdUsuario equals U.Id
+                    where CM.IdPelicula == d.PeliculaBase.IdPelicula
+                    select new ComentarioDetail
                     {
-                        IdComentario = CM.IdComentario,
-                        Comentario1 = CM.Comentario1
+                        UserName = U.UserName,
+                        Fecha = DateTime.Now,
+                        Comentario = CM.Comentario1
                     };
                 d.ListComentarios = await c.ToListAsync();
             });
+            // 29590edb-a830-4926-b539-b1a2dad2ebbe
+            // 29590edb-a830-4926-b539-b1a2dad2ebbe
             return View(d);
         }
+        
         [HttpGet]
         public async Task<IActionResult> PeliculasGeneros(int? id)
         {

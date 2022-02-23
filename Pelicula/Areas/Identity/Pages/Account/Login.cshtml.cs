@@ -44,8 +44,8 @@ namespace Pelicula.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            [Display(Name = "Nombre de Usuario")]
+            public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -78,11 +78,12 @@ namespace Pelicula.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
                 // Esto no cuenta las fallas de inicio de sesión para el bloqueo de la cuenta
                 // Para permitir que los errores de contraseña activen el bloqueo de la cuenta, configure lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+
+                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("Usuario conectado.");
