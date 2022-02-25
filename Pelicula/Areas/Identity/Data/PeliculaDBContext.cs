@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pelicula.Areas.Identity.Data;
-using Pelicula.Models.DB;
+using Pelicula.Models.Table;
 
 namespace Pelicula.Data;
 

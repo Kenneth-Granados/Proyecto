@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Pelicula.Models.DB;
+using Pelicula.Models.Table;
 using Pelicula.Models;
 using System.Collections;
 using Microsoft.Data.SqlClient;

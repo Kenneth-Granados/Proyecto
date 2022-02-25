@@ -1,7 +1,9 @@
 ﻿@page
 @model RegisterModel
+@using Microsoft.AspNetCore.Http.Extensions;
 @{
     ViewData["Title"] = "Register";
+    
 }
 
 @*<div class="row">
@@ -38,10 +40,10 @@
             <div class="card-header bg-dark text-center text-white">Registro</div>
             <div class="card-body bg-transparent">
                 <section>
-                    <form id="account" method="post">
-                        <div asp-validation-summary="All" class="text-danger"></div>
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl"  method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1">@@</span>
+                            <span class="input-group-text" >@@</span>
                             <input asp-for="Input.UserName" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                             <span asp-validation-for="Input.UserName" class="text-danger"></span>
                         </div>

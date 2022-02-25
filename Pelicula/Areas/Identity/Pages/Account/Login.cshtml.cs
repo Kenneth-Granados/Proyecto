@@ -1,7 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Pelicula.Areas.Identity.Data;
 using System.Diagnostics;
 using System.Net;
+using Microsoft.Win32;
 
 namespace Pelicula.Areas.Identity.Pages.Account
 {
@@ -74,12 +72,21 @@ namespace Pelicula.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            if (returnUrl=="/Identity/Account/Register")
+            {
+                returnUrl = Url.Content("~/");
+            }
+            else
+            {
+                returnUrl ??= Url.Content("~/");
+            }
+
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid) 
             {
+                // /Identity/Account/Register
                 // Esto no cuenta las fallas de inicio de sesión para el bloqueo de la cuenta
                 // Para permitir que los errores de contraseña activen el bloqueo de la cuenta, configure lockoutOnFailure: true
 
@@ -89,21 +96,22 @@ namespace Pelicula.Areas.Identity.Pages.Account
                     _logger.LogInformation("Usuario conectado.");
                     return LocalRedirect(returnUrl);
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("Cuenta de usuario bloqueada.");
-                    return RedirectToPage("./Lockout");
-                }
+                //if (result.RequiresTwoFactor)
+                //{
+                //    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                //}
+                //if (result.IsLockedOut)
+                //{
+                //    _logger.LogWarning("Cuenta de usuario bloqueada.");
+                //    return RedirectToPage("./Lockout");
+                //}
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
             }
+            
 
             // If we got this far, something failed, redisplay form
             return Page();

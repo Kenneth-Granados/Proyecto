@@ -22,7 +22,7 @@
                 <span asp-validation-for="Titulo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Duracion" class="control-label"></label>
+                <label asp-for="Duracion" class="control-label" clas></label>
                 <input type="time" asp-for="Duracion" class="form-control" />
                 <span asp-validation-for="Duracion" class="text-danger"></span>
             </div>
@@ -84,14 +84,8 @@
 </body>
 </html>
 
-
-
-
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
-
 }
 
 

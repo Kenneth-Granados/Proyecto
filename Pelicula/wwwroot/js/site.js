@@ -14,21 +14,17 @@ $(document).ready(function () {
             $('#CommentTextArea').attr("maxlength",200);
         }
     });
+    var screen = $('#loaderbody');
+    LoadingScreen(screen);
 });
-$(function () {
-    $("#loaderbody").addClass('hide');
-
-    $(document).bind('ajaxStart', function () {
-        $("#loaderbody").removeClass('hide');
-    }).bind('ajaxStop', function () {
-        $("#loaderbody").addClass('hide');
-    });
-});
-
-
-Mens = function () {
-    alert("Mensaje de prueba");
+function LoadingScreen(screen) {
+    $(document).ajaxStart(function () {
+        screen.fadeIn();
+    }).ajaxStop(function () {
+        screen.fadeOut();
+    })
 }
+
 jQueryAjaxPostAddComentario = form => {
     $("#loaderbody").addClass('hide');
     try {
@@ -69,20 +65,3 @@ jQueryAjaxPostAddComentario = form => {
     }
 }
 
-//$(document).ready(function () {
-//    $("#frm").submit(function (e) {
-//        e.preventDefault();
-//        url = "@Url.Content("~/Home/AddComentario")";
-//        parametros = $(this).serialize(); //Obtiene los atributos serializados
-
-//        $.post(url, parametros, function (data) {
-//            if (data.isValid || data.isValid == undefined) {
-//                alert("Esto funciona")
-//            }
-//            else {
-//                alert("Esto no funciona");
-//            }
-//        })
-
-//    })
-//});

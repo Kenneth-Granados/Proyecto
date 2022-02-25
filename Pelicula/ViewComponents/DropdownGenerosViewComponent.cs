@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Pelicula.Models.DB;
+using Pelicula.Models.Table;
 using Microsoft.EntityFrameworkCore;
 
 namespace Pelicula.ViewComponents

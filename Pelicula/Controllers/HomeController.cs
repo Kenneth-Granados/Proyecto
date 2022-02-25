@@ -4,7 +4,7 @@ using System.Diagnostics;
 using Pelicula.Areas.Identity.Data;
 using Pelicula.Data;
 using Microsoft.EntityFrameworkCore;
-using Pelicula.Models.DB;
+using Pelicula.Models.Table;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using Pelicula.Servicios;
@@ -41,11 +41,7 @@ namespace Pelicula.Controllers
             }
             return View(await moviequery.AsNoTracking().ToListAsync());
         }
-        //public async Task<IActionResult> AddComentario([Bind("IdPelicula,IdUsuario,Comentario1")] Comentario cm)
-        //{
-
-        //    return Json(new { isValid = true });
-        //}
+        
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> AddComentario(string Comentario, int IdPelicula, string UserName)

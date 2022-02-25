@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Pelicula.Models.DB;
+using Pelicula.Models.Table;
 
 namespace Pelicula.Servicios
 {

@@ -4,7 +4,7 @@ using Pelicula.Data;
 using Microsoft.AspNetCore.Authorization;
 using Pelicula.Areas.Identity.Data;
 using Pelicula.Servicios;
-using Pelicula.Models.DB;
+using Pelicula.Models.Table;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PeliculaDBContextConnection");
