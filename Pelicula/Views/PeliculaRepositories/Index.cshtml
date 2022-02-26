@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Pelicula.Models.PeliculaLite>
+﻿@model IEnumerable<Pelicula.Models.ViewModel.IndexVistas>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,28 +6,20 @@
 }
 
 <h1>Index</h1>
-
+@{
+    int contador = Model.Count();
+}
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+@if(contador > 0){
+    <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Titulo)
+                @Html.DisplayNameFor(model => model.ListPelicula.Titulo)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Duracion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LinkPelicula)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LinkImagen)
-            </th>*@
+            <th>Vistas</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -35,26 +27,21 @@
         @foreach (var item in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Titulo)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.Duracion)
+                    @Html.DisplayFor(modelItem => item.ListPelicula.Titulo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
+                    @Html.DisplayFor(modelItem => item.Vistas)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LinkPelicula)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LinkImagen)
-                </td>*@
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdPelicula">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.IdPelicula">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdPelicula">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ListPelicula.IdPelicula">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ListPelicula.IdPelicula">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ListPelicula.IdPelicula">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
-</table>
+    </table>
+}else
+{
+    <h2 class="text-center">No se ha registrado ninguna Pelicula</h2>
+}

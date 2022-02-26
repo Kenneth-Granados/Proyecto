@@ -25,7 +25,7 @@ namespace Pelicula.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PeliculaRepositories.ToListAsync());
+            return View(await _context.PeliculaRepositories.OrderByDescending(w => w.IdPelicula).ToListAsync());
         }
         [HttpGet]
         public async Task<IActionResult> Index(string MovieSearch)
@@ -139,6 +139,9 @@ namespace Pelicula.Controllers
                     };
                 d.ListComentarios = await c.ToListAsync();
             });
+            //Se aunmenta el contador de la visualizaciones
+            await _context.Visualizaciones.AddAsync(new Visualizacione { IdPelicula = id.Value, Fecha = DateTime.Now });
+            await _context.SaveChangesAsync();
             // 29590edb-a830-4926-b539-b1a2dad2ebbe
             // 29590edb-a830-4926-b539-b1a2dad2ebbe
             return View(d);

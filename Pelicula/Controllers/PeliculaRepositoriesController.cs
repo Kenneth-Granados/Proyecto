@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Syncfusion.EJ2.Spreadsheet;
+using Pelicula.Models.ViewModel;
 
 namespace Pelicula.Controllers
 {
@@ -31,7 +32,15 @@ namespace Pelicula.Controllers
         // GET: PeliculaRepositories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PeliculaRepositories.Select(m => new PeliculaLite { IdPelicula = m.IdPelicula, Titulo = m.Titulo }).ToListAsync());
+            List<IndexVistas> IV = new List<IndexVistas>();
+            var peliculas = await _context.PeliculaRepositories.ToArrayAsync();
+            foreach (var item in  peliculas)
+            {
+                PeliculaLite pl = new PeliculaLite(){IdPelicula = item.IdPelicula,Titulo = item.Titulo};
+                int contador = _context.Visualizaciones.Count(w => w.IdPelicula == item.IdPelicula);
+                IV.Add(new IndexVistas { ListPelicula = pl, Vistas = contador });
+            }
+            return View(IV);
         }
 
         // GET: PeliculaRepositories/Details/5
@@ -42,13 +51,11 @@ namespace Pelicula.Controllers
                 return NotFound();
             }
 
-            var peliculaRepository = await _context.PeliculaRepositories
-                .FirstOrDefaultAsync(m => m.IdPelicula == id);
+            var peliculaRepository = await _context.PeliculaRepositories.FirstOrDefaultAsync(m => m.IdPelicula == id);
             if (peliculaRepository == null)
             {
                 return NotFound();
-            }
-
+            }           
             return View(peliculaRepository);
         }
 
@@ -79,7 +86,6 @@ namespace Pelicula.Controllers
             //    return RedirectToAction(nameof(Index));
             if (ModelState.IsValid)
             {
-                /*
                 using(var trasn = _context.Database.BeginTransaction())
                 {
                     try
@@ -90,12 +96,8 @@ namespace Pelicula.Controllers
                         await _context.Database.ExecuteSqlInterpolatedAsync
                         (
                             $@"EXEC SP_InsertMovie 
-                            @IdPelicula={parametroId} OUTPUT, 
-                            @Titulo={full.Titulo},
-                            @Duracion = {full.Duracion},
-                            @Descripcion = {full.Descripcion},
-                            @LinkPelicula = {full.LinkPelicula},
-                            @LinkImagen = {full.LinkImagen}"
+                            @IdPelicula={parametroId} OUTPUT,@Titulo={full.Titulo},@Duracion = {full.Duracion},
+                            @Descripcion = {full.Descripcion},@LinkPelicula = {full.LinkPelicula},@LinkImagen = {full.LinkImagen}"
                         );
                         var idPeliculaInsertada = (int)parametroId.Value;
                         List<int> listIdActores = new List<int>();
@@ -122,11 +124,7 @@ namespace Pelicula.Controllers
                         {
                             relacionPeliculaActor.Add
                                 (
-                                    new ActorPelicula 
-                                    { 
-                                        IdPelicula = idPeliculaInsertada, 
-                                        IdActor = item 
-                                    }
+                                    new ActorPelicula { IdPelicula = idPeliculaInsertada, IdActor = item }
                                 );
                         }
                         await _context.ActorPeliculas.AddRangeAsync(relacionPeliculaActor);
@@ -136,11 +134,7 @@ namespace Pelicula.Controllers
                         {
                             relacionPeliculaGenero.Add
                                 (
-                                    new PeliculaGenero 
-                                    { 
-                                        IdPelicula = idPeliculaInsertada,
-                                        IdGenero = item
-                                    }
+                                    new PeliculaGenero { IdPelicula = idPeliculaInsertada,IdGenero = item}
                                 );
                         }
                         await _context.PeliculaGeneros.AddRangeAsync(relacionPeliculaGenero);
@@ -154,8 +148,8 @@ namespace Pelicula.Controllers
                         trasn.Rollback();
                     }
                     
-                }// End Transacion
-                */
+                }
+                
             }
             else{
                 

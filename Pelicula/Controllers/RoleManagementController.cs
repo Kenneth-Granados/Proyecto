@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Pelicula.Areas.Identity.Data;
 using Pelicula.Models;
+using Pelicula.Models.Table;
 
 namespace Pelicula.Controllers
 {
@@ -14,11 +16,14 @@ namespace Pelicula.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         // Administrador de funciones
         private readonly RoleManager<IdentityRole> roleManager;
+        // Clase de contexto de datos
+        private readonly PeliculaContext _context;
 
-        public RoleManagementController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public RoleManagementController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, PeliculaContext context)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            _context = context;
         }
 
 
@@ -26,7 +31,16 @@ namespace Pelicula.Controllers
         public IActionResult Index()
         {
             //obtener todos los usuarios y los envia a la vista
-            var users = userManager.Users.ToList();
+            var name = userManager.GetUserName(User);
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            if(name == null)
+            {
+                users = userManager.Users.ToList();
+            }
+            else
+            {
+                users = userManager.Users.Where(d => d.UserName != name).ToList();   //ToList().Where(d => d.UserName != name).ToList();
+            }
             return View(users);
         }
         [HttpGet]
@@ -147,6 +161,34 @@ namespace Pelicula.Controllers
             var result = await roleManager.DeleteAsync(roleToDelete);
 
             return RedirectToAction(nameof(DisplayRoles));
+        }
+        // GET: PeliculaRepositories/Delete/5
+        public async Task<IActionResult> Delete(string? userId)
+        {
+            if (userId == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.AspNetUsers.FindAsync (userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            
+            return View(user);
+
+        }
+
+        //POST: PeliculaRepositories/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string userId)
+        {
+            //var userRemove = await _context.AspNetUsers.FindAsync(userId);
+            var user = await userManager.FindByIdAsync(userId);
+            await userManager.DeleteAsync(user);
+            return RedirectToAction(nameof(Index));
         }
 
         [Route("404")]

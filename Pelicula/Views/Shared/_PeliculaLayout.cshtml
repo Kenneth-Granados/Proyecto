@@ -13,12 +13,12 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <div class="col-md-12">
                             <a class="btn btn-outline-primary btn-block" asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="1">Accion</a>
-                            <a class="btn btn-outline-primary btn-block">Aventura</a>
-                            <a class="btn btn-outline-primary btn-block">Comedia</a>
-                            <a class="btn btn-outline-primary btn-block">Terror</a>
-                            <a class="btn btn-outline-primary btn-block">Crimen</a>
-                            <a class="btn btn-outline-primary btn-block">Suspenso</a>
-                            <a class="btn btn-outline-primary btn-block">Fantasia</a>
+                            <a class="btn btn-outline-primary btn-block" asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="3">Aventura</a>
+                            <a class="btn btn-outline-primary btn-block" asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="6">Comedia</a>
+                            <a class="btn btn-outline-primary btn-block" asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="15">Terror</a>
+                            <a class="btn btn-outline-primary btn-block" asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="7">Crimen</a>
+                            <a class="btn btn-outline-primary btn-block" asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="28">Suspenso</a>
+                            <a class="btn btn-outline-primary btn-block" asp-action="PeliculasGeneros" asp-controller="Home" asp-route-id="11">Fantasia</a>
                         </div>
                         @await Component.InvokeAsync("DropdownGeneros") 
                     </ul>
