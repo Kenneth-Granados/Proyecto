@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Integration Services Pelicula", "Integration Services Pelicula\Integration Services Pelicula.dtproj", "{6224CA2E-CBC9-4C79-AB1E-F8EC64145C3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6224CA2E-CBC9-4C79-AB1E-F8EC64145C3B}.Development|Default.ActiveCfg = Development
+		{6224CA2E-CBC9-4C79-AB1E-F8EC64145C3B}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1F2FB7F-F238-4592-B901-698967D2F962}
+	EndGlobalSection
+EndGlobal
