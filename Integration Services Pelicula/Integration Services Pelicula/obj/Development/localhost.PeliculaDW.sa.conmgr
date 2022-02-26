@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="localhost.PeliculaDW.sa"
+  DTS:DTSID="{505B56AA-1E67-44C4-ADB7-54DF613A97A8}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=localhost;User ID=sa;Initial Catalog=PeliculaDW;Application Name=SSIS-Integration Services Pelicula-{505B56AA-1E67-44C4-ADB7-54DF613A97A8}localhost.PeliculaDW.sa;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAkQBM6Izm/UqfwQqkBXEu9gAAAAACAAAAAAAQZgAAAAEAACAAAABHYIBOhB9LFyCPZutdUtx06LXfQQMjtreFFvyRpSLS/wAAAAAOgAAAAAIAACAAAAAsYg0CNc3MlF2DWEy/BW55QZKYwaCNzlpEpbfKO2+g2oAAAADC5+W2vmIBcqQynfMXNIT/AQNGfl/lcz2SK7I/QBTOi9ogAPdT78NpqfMPAkvLDhMNoQpbOBTW5VJrlPWC1jUwF5WQDA8Iq9jXV5MnEoH9eK0L5dB7+Ed65DNmDkJq+JXlsbDFPjiKq/OjlIFZVpTGQNSrwBLcG79Lap3IYjNUtEAAAABqg1kwA8oJPll/F6/stVcxVGTGwhd6nQOHdOodpd3X/bZt612mWtaylyj5I2TlJOWpKTU9BC1kGAa430S/O+TC</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
